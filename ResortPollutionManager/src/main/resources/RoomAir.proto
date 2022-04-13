@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "RoomAirManager";
+option java_outer_classname = "RoomAirImpl";
+
+package RoomAirManager;
+
+service RoomAir {
+
+
+	rpc controllRoomAir (roomNum) returns (stream hourlyAirTracker);
+}
+
+message roomNum{
+	int32 room = 1;
+}
+
+message hourlyAirTracker{
+	string temperature = 1;
+	string window = 2;
+	string airPurifier = 3;
+
+}
