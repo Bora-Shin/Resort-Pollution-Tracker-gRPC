@@ -17,13 +17,19 @@ public class Client {
 		
 		ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
 		
-		//preparing message to send
+		//preparing message to send (request) - server streaming part
 		lastReplaced roomFilter = lastReplaced.newBuilder().setRoom(102).setLastReplacedDate("2022-03-01").build();
 		
-		//retrieving reply from service
+		//retrieving reply from service (response)
 		RoomWaterDispenserBlockingStub blockingStub = RoomWaterDispenserGrpc.newBlockingStub(channel);
 		
 		expired response = blockingStub.filterExpiry(roomFilter);
+		
+		try {
+			Thread.sleep(5000);
+		}catch(InterruptedException e) {
+			e.printStackTrace();
+		}
 		
 		// Clean up : Shutdown the channel
 		channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);

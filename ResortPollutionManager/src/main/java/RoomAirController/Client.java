@@ -1,6 +1,7 @@
  package RoomAirController;
 
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
 import RoomAirController.RoomAirGrpc.RoomAirBlockingStub;
 import RoomAirController.RoomAirGrpc.RoomAirStub;
@@ -74,10 +75,8 @@ public class Client {
 			e.printStackTrace();
 		}
 		
-		try {
-			Thread.sleep(15000);
-		}catch(InterruptedException e) {
-			e.printStackTrace();
-		}
+		// Clean up : Shutdown the channel
+		channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+
 	}
 }
