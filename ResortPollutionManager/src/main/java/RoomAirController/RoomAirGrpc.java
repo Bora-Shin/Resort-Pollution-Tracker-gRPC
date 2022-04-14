@@ -34,7 +34,7 @@ public final class RoomAirGrpc {
       fullMethodName = SERVICE_NAME + '/' + "controllRoomAir",
       requestType = RoomAirController.roomNum.class,
       responseType = RoomAirController.hourlyAirTracker.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
   public static io.grpc.MethodDescriptor<RoomAirController.roomNum,
       RoomAirController.hourlyAirTracker> getControllRoomAirMethod() {
     io.grpc.MethodDescriptor<RoomAirController.roomNum, RoomAirController.hourlyAirTracker> getControllRoomAirMethod;
@@ -43,7 +43,7 @@ public final class RoomAirGrpc {
         if ((getControllRoomAirMethod = RoomAirGrpc.getControllRoomAirMethod) == null) {
           RoomAirGrpc.getControllRoomAirMethod = getControllRoomAirMethod = 
               io.grpc.MethodDescriptor.<RoomAirController.roomNum, RoomAirController.hourlyAirTracker>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
               .setFullMethodName(generateFullMethodName(
                   "RoomAirController.RoomAir", "controllRoomAir"))
               .setSampledToLocalTracing(true)
@@ -88,19 +88,19 @@ public final class RoomAirGrpc {
 
     /**
      * <pre>
-     * server streaming rpc
+     * bi-directional streaming rpc
      * </pre>
      */
-    public void controllRoomAir(RoomAirController.roomNum request,
+    public io.grpc.stub.StreamObserver<RoomAirController.roomNum> controllRoomAir(
         io.grpc.stub.StreamObserver<RoomAirController.hourlyAirTracker> responseObserver) {
-      asyncUnimplementedUnaryCall(getControllRoomAirMethod(), responseObserver);
+      return asyncUnimplementedStreamingCall(getControllRoomAirMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getControllRoomAirMethod(),
-            asyncServerStreamingCall(
+            asyncBidiStreamingCall(
               new MethodHandlers<
                 RoomAirController.roomNum,
                 RoomAirController.hourlyAirTracker>(
@@ -129,13 +129,13 @@ public final class RoomAirGrpc {
 
     /**
      * <pre>
-     * server streaming rpc
+     * bi-directional streaming rpc
      * </pre>
      */
-    public void controllRoomAir(RoomAirController.roomNum request,
+    public io.grpc.stub.StreamObserver<RoomAirController.roomNum> controllRoomAir(
         io.grpc.stub.StreamObserver<RoomAirController.hourlyAirTracker> responseObserver) {
-      asyncServerStreamingCall(
-          getChannel().newCall(getControllRoomAirMethod(), getCallOptions()), request, responseObserver);
+      return asyncBidiStreamingCall(
+          getChannel().newCall(getControllRoomAirMethod(), getCallOptions()), responseObserver);
     }
   }
 
@@ -155,17 +155,6 @@ public final class RoomAirGrpc {
     protected RoomAirBlockingStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new RoomAirBlockingStub(channel, callOptions);
-    }
-
-    /**
-     * <pre>
-     * server streaming rpc
-     * </pre>
-     */
-    public java.util.Iterator<RoomAirController.hourlyAirTracker> controllRoomAir(
-        RoomAirController.roomNum request) {
-      return blockingServerStreamingCall(
-          getChannel(), getControllRoomAirMethod(), getCallOptions(), request);
     }
   }
 
@@ -207,10 +196,6 @@ public final class RoomAirGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_CONTROLL_ROOM_AIR:
-          serviceImpl.controllRoomAir((RoomAirController.roomNum) request,
-              (io.grpc.stub.StreamObserver<RoomAirController.hourlyAirTracker>) responseObserver);
-          break;
         default:
           throw new AssertionError();
       }
@@ -221,6 +206,9 @@ public final class RoomAirGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_CONTROLL_ROOM_AIR:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.controllRoomAir(
+              (io.grpc.stub.StreamObserver<RoomAirController.hourlyAirTracker>) responseObserver);
         default:
           throw new AssertionError();
       }

@@ -7,12 +7,12 @@ import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
-public class RoomAirControllerService extends RoomAirImplBase  {
-	
-	public static void main(String[] args) throws IOException, InterruptedException{
-		
+public class RoomAirControllerService extends RoomAirImplBase {
+
+	public static void main(String[] args) throws IOException, InterruptedException {
+
 		RoomAirControllerService service3 = new RoomAirControllerService();
-		
+
 		int port = 50051;
 		Server server = ServerBuilder.forPort(port).addService(service3).build().start();
 
@@ -21,68 +21,72 @@ public class RoomAirControllerService extends RoomAirImplBase  {
 		server.awaitTermination();
 	}
 
-	// server steaming rpc
-	@Override
-	public void controllRoomAir (roomNum request, StreamObserver<hourlyAirTracker> responseObserver) {
-		
-		hourlyAirTracker.Builder responseBuilder = hourlyAirTracker.newBuilder();
-		
-		// these are just variables created for the purpose of simplifying this project.
-		// in real life, I would like this part to be linked to thermometer to collect room temperature data.
-		int minTemp = 0;
-		int maxTemp = 50;
-		
-		// generating random Air Quality Index (AQI) for this project
-		int min = 0;
-		int max = 500;
-		
-		
-		// server sending message to the room thermometer every hour for 5 hours
-		for(int hour = 0; hour <5; hour++) {
-			int aqi = (int) Math.floor(Math.random()*(max-min+1)+min);
-			String currentAQI = "Room Air Quality Index: " + aqi;	
-			
-			// temperature
-			String temperatureMsg = "Current room temperature: ";
-			int temperature = (int) Math.floor(Math.random()*(maxTemp-minTemp+1)+minTemp);
-			temperatureMsg += temperature+" degrees. The room is ";
-			if (temperature <= 15) {
-				temperatureMsg += "cold. Turning the heater ON.";
-			}else if(temperature >= 25) {
-				temperatureMsg += "hot. Turning the aircon ON.";
-			}else {
-				temperatureMsg += "moderate.";
+	// bi-directional steaming rpc
+	public StreamObserver<roomNum> controllRoomAir(StreamObserver<hourlyAirTracker> responseObserver) {
+
+		return new StreamObserver<roomNum>() {
+
+			@Override
+			public void onNext(roomNum value) {
+				// TODO Auto-generated method stub
+				for (int hour = 0; hour < 5; hour++) {
+
+					// temperature
+					String temperatureMsg = "Current room temperature: ";
+					int temperature = value.getTemperature();
+					temperatureMsg += temperature + " degrees. The room is ";
+					if (temperature <= 15) {
+						temperatureMsg += "cold. Turning the heater ON.";
+					} else if (temperature >= 25) {
+						temperatureMsg += "hot. Turning the aircon ON.";
+					} else {
+						temperatureMsg += "moderate.";
+					}
+
+					// air purifier
+					int aqi = value.getAqi();
+					String currentAQI = "Room Air Quality Index: " + aqi;
+					String airPurifierStatus = "";
+					if (aqi <= 100) {
+						airPurifierStatus += "OFF - Air Quality is Good. ";
+					} else {
+						airPurifierStatus += "ON - Air Quality is Bad. ";
+					}
+
+					// carbon monoxide alarm
+					int carbonMonox = value.getCarbonMonoxide();
+					String carbonMonoxAlarm = "Carbon Monoxide Level: " + carbonMonox + " PPM. Status: ";
+					if (carbonMonox <= 50) {
+						carbonMonoxAlarm += "NORMAL";
+					} else if (carbonMonox < 150) {
+						carbonMonoxAlarm += "UNHEALTHY. Please open the window.";
+					} else {
+						carbonMonoxAlarm += "DANGEROUS. Please leave the room and notify building manager.";
+					}
+
+					hourlyAirTracker response = hourlyAirTracker.newBuilder().setTemperature(temperatureMsg)
+							.setAqi(currentAQI).setAirPurifier(airPurifierStatus).setCarbonMonoxide(carbonMonoxAlarm)
+							.build();
+					responseObserver.onNext(response);
+				}
+
 			}
-			
-			// air purifier
-			String airPurifierStatus = "";
-			if (aqi <= 100) {
-				airPurifierStatus += "OFF - Air Quality is Good. ";
-			}else {
-				airPurifierStatus += "ON - Air Quality is Bad. ";
+
+			@Override
+			public void onError(Throwable t) {
+				t.printStackTrace();
+
 			}
-			
-			// carbon monoxide alarm
-			min = 0;
-			max = 200;
-			int carbonMonox = (int) Math.floor(Math.random()*(max-min+1)+min);
-			String carbonMonoxAlarm = "Carbon Monoxide Level: " + carbonMonox + " PPM. \nStatus: ";
-			if(carbonMonox <=50) {
-				carbonMonoxAlarm += "NORMAL";
-			}else if(carbonMonox <150) {
-				carbonMonoxAlarm += "UNHEALTHY. Please open the window.";
-			}else {
-				carbonMonoxAlarm += "DANGEROUS. Please leave the room and notify building manager.";
+
+			@Override
+			public void onCompleted() {
+				// to indicate the message is finished
+				responseObserver.onCompleted();
+
 			}
-			
-			
-			
-			responseBuilder.setAqi(aqi).setTemperature(temperatureMsg).setAirPurifier(airPurifierStatus).setCarbonMonoxide(carbonMonoxAlarm);
-			responseObserver.onNext(responseBuilder.build());
-			
-		}
-		
-		// to indicate the message is finished
-		responseObserver.onCompleted();
+
+		};
+
 	}
+
 }

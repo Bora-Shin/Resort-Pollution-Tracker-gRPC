@@ -9,17 +9,20 @@ package RoomAirController;
 service RoomAir {
 
 
-	// server streaming rpc
-	rpc controllRoomAir (roomNum) returns (stream hourlyAirTracker);
+	// bi-directional streaming rpc
+	rpc controllRoomAir (stream roomNum) returns (stream hourlyAirTracker);
 }
 
 message roomNum{
 	int32 room = 1;
+	int32 temperature = 2;
+	int32 aqi=3;
+	int32 carbonMonoxide = 4;
 }
 
 message hourlyAirTracker{
-	int32 aqi=1;
-	string temperature = 2;
+	string temperature = 1;
+	string aqi=2;
 	string airPurifier = 3;
 	string carbonMonoxide = 4;
 

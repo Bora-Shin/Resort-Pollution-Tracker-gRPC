@@ -16,8 +16,8 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private hourlyAirTracker() {
-    aqi_ = 0;
     temperature_ = "";
+    aqi_ = "";
     airPurifier_ = "";
     carbonMonoxide_ = "";
   }
@@ -46,15 +46,16 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
+          case 10: {
+            java.lang.String s = input.readStringRequireUtf8();
 
-            aqi_ = input.readInt32();
+            temperature_ = s;
             break;
           }
           case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            temperature_ = s;
+            aqi_ = s;
             break;
           }
           case 26: {
@@ -101,19 +102,10 @@ private static final long serialVersionUID = 0L;
             RoomAirController.hourlyAirTracker.class, RoomAirController.hourlyAirTracker.Builder.class);
   }
 
-  public static final int AQI_FIELD_NUMBER = 1;
-  private int aqi_;
-  /**
-   * <code>int32 aqi = 1;</code>
-   */
-  public int getAqi() {
-    return aqi_;
-  }
-
-  public static final int TEMPERATURE_FIELD_NUMBER = 2;
+  public static final int TEMPERATURE_FIELD_NUMBER = 1;
   private volatile java.lang.Object temperature_;
   /**
-   * <code>string temperature = 2;</code>
+   * <code>string temperature = 1;</code>
    */
   public java.lang.String getTemperature() {
     java.lang.Object ref = temperature_;
@@ -128,7 +120,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string temperature = 2;</code>
+   * <code>string temperature = 1;</code>
    */
   public com.google.protobuf.ByteString
       getTemperatureBytes() {
@@ -138,6 +130,40 @@ private static final long serialVersionUID = 0L;
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
       temperature_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int AQI_FIELD_NUMBER = 2;
+  private volatile java.lang.Object aqi_;
+  /**
+   * <code>string aqi = 2;</code>
+   */
+  public java.lang.String getAqi() {
+    java.lang.Object ref = aqi_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      aqi_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string aqi = 2;</code>
+   */
+  public com.google.protobuf.ByteString
+      getAqiBytes() {
+    java.lang.Object ref = aqi_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      aqi_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -226,11 +252,11 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (aqi_ != 0) {
-      output.writeInt32(1, aqi_);
-    }
     if (!getTemperatureBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, temperature_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, temperature_);
+    }
+    if (!getAqiBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, aqi_);
     }
     if (!getAirPurifierBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 3, airPurifier_);
@@ -247,12 +273,11 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (aqi_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, aqi_);
-    }
     if (!getTemperatureBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, temperature_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, temperature_);
+    }
+    if (!getAqiBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, aqi_);
     }
     if (!getAirPurifierBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, airPurifier_);
@@ -276,10 +301,10 @@ private static final long serialVersionUID = 0L;
     RoomAirController.hourlyAirTracker other = (RoomAirController.hourlyAirTracker) obj;
 
     boolean result = true;
-    result = result && (getAqi()
-        == other.getAqi());
     result = result && getTemperature()
         .equals(other.getTemperature());
+    result = result && getAqi()
+        .equals(other.getAqi());
     result = result && getAirPurifier()
         .equals(other.getAirPurifier());
     result = result && getCarbonMonoxide()
@@ -295,10 +320,10 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + AQI_FIELD_NUMBER;
-    hash = (53 * hash) + getAqi();
     hash = (37 * hash) + TEMPERATURE_FIELD_NUMBER;
     hash = (53 * hash) + getTemperature().hashCode();
+    hash = (37 * hash) + AQI_FIELD_NUMBER;
+    hash = (53 * hash) + getAqi().hashCode();
     hash = (37 * hash) + AIRPURIFIER_FIELD_NUMBER;
     hash = (53 * hash) + getAirPurifier().hashCode();
     hash = (37 * hash) + CARBONMONOXIDE_FIELD_NUMBER;
@@ -436,9 +461,9 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      aqi_ = 0;
-
       temperature_ = "";
+
+      aqi_ = "";
 
       airPurifier_ = "";
 
@@ -470,8 +495,8 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public RoomAirController.hourlyAirTracker buildPartial() {
       RoomAirController.hourlyAirTracker result = new RoomAirController.hourlyAirTracker(this);
-      result.aqi_ = aqi_;
       result.temperature_ = temperature_;
+      result.aqi_ = aqi_;
       result.airPurifier_ = airPurifier_;
       result.carbonMonoxide_ = carbonMonoxide_;
       onBuilt();
@@ -522,11 +547,12 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(RoomAirController.hourlyAirTracker other) {
       if (other == RoomAirController.hourlyAirTracker.getDefaultInstance()) return this;
-      if (other.getAqi() != 0) {
-        setAqi(other.getAqi());
-      }
       if (!other.getTemperature().isEmpty()) {
         temperature_ = other.temperature_;
+        onChanged();
+      }
+      if (!other.getAqi().isEmpty()) {
+        aqi_ = other.aqi_;
         onChanged();
       }
       if (!other.getAirPurifier().isEmpty()) {
@@ -566,35 +592,9 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int aqi_ ;
-    /**
-     * <code>int32 aqi = 1;</code>
-     */
-    public int getAqi() {
-      return aqi_;
-    }
-    /**
-     * <code>int32 aqi = 1;</code>
-     */
-    public Builder setAqi(int value) {
-      
-      aqi_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>int32 aqi = 1;</code>
-     */
-    public Builder clearAqi() {
-      
-      aqi_ = 0;
-      onChanged();
-      return this;
-    }
-
     private java.lang.Object temperature_ = "";
     /**
-     * <code>string temperature = 2;</code>
+     * <code>string temperature = 1;</code>
      */
     public java.lang.String getTemperature() {
       java.lang.Object ref = temperature_;
@@ -609,7 +609,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string temperature = 2;</code>
+     * <code>string temperature = 1;</code>
      */
     public com.google.protobuf.ByteString
         getTemperatureBytes() {
@@ -625,7 +625,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string temperature = 2;</code>
+     * <code>string temperature = 1;</code>
      */
     public Builder setTemperature(
         java.lang.String value) {
@@ -638,7 +638,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string temperature = 2;</code>
+     * <code>string temperature = 1;</code>
      */
     public Builder clearTemperature() {
       
@@ -647,7 +647,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string temperature = 2;</code>
+     * <code>string temperature = 1;</code>
      */
     public Builder setTemperatureBytes(
         com.google.protobuf.ByteString value) {
@@ -657,6 +657,75 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       temperature_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object aqi_ = "";
+    /**
+     * <code>string aqi = 2;</code>
+     */
+    public java.lang.String getAqi() {
+      java.lang.Object ref = aqi_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        aqi_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string aqi = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getAqiBytes() {
+      java.lang.Object ref = aqi_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        aqi_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string aqi = 2;</code>
+     */
+    public Builder setAqi(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      aqi_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string aqi = 2;</code>
+     */
+    public Builder clearAqi() {
+      
+      aqi_ = getDefaultInstance().getAqi();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string aqi = 2;</code>
+     */
+    public Builder setAqiBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      aqi_ = value;
       onChanged();
       return this;
     }

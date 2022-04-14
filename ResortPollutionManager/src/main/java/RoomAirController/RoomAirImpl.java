@@ -33,14 +33,15 @@ public final class RoomAirImpl {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rRoomAir.proto\022\021RoomAirController\"\027\n\007ro" +
-      "omNum\022\014\n\004room\030\001 \001(\005\"a\n\020hourlyAirTracker\022" +
-      "\013\n\003aqi\030\001 \001(\005\022\023\n\013temperature\030\002 \001(\t\022\023\n\013air" +
-      "Purifier\030\003 \001(\t\022\026\n\016carbonMonoxide\030\004 \001(\t2_" +
-      "\n\007RoomAir\022T\n\017controllRoomAir\022\032.RoomAirCo" +
-      "ntroller.roomNum\032#.RoomAirController.hou" +
-      "rlyAirTracker0\001B\"\n\021RoomAirControllerB\013Ro" +
-      "omAirImplP\001b\006proto3"
+      "\n\rRoomAir.proto\022\021RoomAirController\"Q\n\007ro" +
+      "omNum\022\014\n\004room\030\001 \001(\005\022\023\n\013temperature\030\002 \001(\005" +
+      "\022\013\n\003aqi\030\003 \001(\005\022\026\n\016carbonMonoxide\030\004 \001(\005\"a\n" +
+      "\020hourlyAirTracker\022\023\n\013temperature\030\001 \001(\t\022\013" +
+      "\n\003aqi\030\002 \001(\t\022\023\n\013airPurifier\030\003 \001(\t\022\026\n\016carb" +
+      "onMonoxide\030\004 \001(\t2a\n\007RoomAir\022V\n\017controllR" +
+      "oomAir\022\032.RoomAirController.roomNum\032#.Roo" +
+      "mAirController.hourlyAirTracker(\0010\001B\"\n\021R" +
+      "oomAirControllerB\013RoomAirImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -59,13 +60,13 @@ public final class RoomAirImpl {
     internal_static_RoomAirController_roomNum_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RoomAirController_roomNum_descriptor,
-        new java.lang.String[] { "Room", });
+        new java.lang.String[] { "Room", "Temperature", "Aqi", "CarbonMonoxide", });
     internal_static_RoomAirController_hourlyAirTracker_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_RoomAirController_hourlyAirTracker_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RoomAirController_hourlyAirTracker_descriptor,
-        new java.lang.String[] { "Aqi", "Temperature", "AirPurifier", "CarbonMonoxide", });
+        new java.lang.String[] { "Temperature", "Aqi", "AirPurifier", "CarbonMonoxide", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

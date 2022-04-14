@@ -8,19 +8,24 @@ public interface hourlyAirTrackerOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int32 aqi = 1;</code>
-   */
-  int getAqi();
-
-  /**
-   * <code>string temperature = 2;</code>
+   * <code>string temperature = 1;</code>
    */
   java.lang.String getTemperature();
   /**
-   * <code>string temperature = 2;</code>
+   * <code>string temperature = 1;</code>
    */
   com.google.protobuf.ByteString
       getTemperatureBytes();
+
+  /**
+   * <code>string aqi = 2;</code>
+   */
+  java.lang.String getAqi();
+  /**
+   * <code>string aqi = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getAqiBytes();
 
   /**
    * <code>string airPurifier = 3;</code>

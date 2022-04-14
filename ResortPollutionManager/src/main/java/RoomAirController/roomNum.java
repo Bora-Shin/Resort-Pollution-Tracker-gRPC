@@ -17,6 +17,9 @@ private static final long serialVersionUID = 0L;
   }
   private roomNum() {
     room_ = 0;
+    temperature_ = 0;
+    aqi_ = 0;
+    carbonMonoxide_ = 0;
   }
 
   @java.lang.Override
@@ -46,6 +49,21 @@ private static final long serialVersionUID = 0L;
           case 8: {
 
             room_ = input.readInt32();
+            break;
+          }
+          case 16: {
+
+            temperature_ = input.readInt32();
+            break;
+          }
+          case 24: {
+
+            aqi_ = input.readInt32();
+            break;
+          }
+          case 32: {
+
+            carbonMonoxide_ = input.readInt32();
             break;
           }
           default: {
@@ -89,6 +107,33 @@ private static final long serialVersionUID = 0L;
     return room_;
   }
 
+  public static final int TEMPERATURE_FIELD_NUMBER = 2;
+  private int temperature_;
+  /**
+   * <code>int32 temperature = 2;</code>
+   */
+  public int getTemperature() {
+    return temperature_;
+  }
+
+  public static final int AQI_FIELD_NUMBER = 3;
+  private int aqi_;
+  /**
+   * <code>int32 aqi = 3;</code>
+   */
+  public int getAqi() {
+    return aqi_;
+  }
+
+  public static final int CARBONMONOXIDE_FIELD_NUMBER = 4;
+  private int carbonMonoxide_;
+  /**
+   * <code>int32 carbonMonoxide = 4;</code>
+   */
+  public int getCarbonMonoxide() {
+    return carbonMonoxide_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -106,6 +151,15 @@ private static final long serialVersionUID = 0L;
     if (room_ != 0) {
       output.writeInt32(1, room_);
     }
+    if (temperature_ != 0) {
+      output.writeInt32(2, temperature_);
+    }
+    if (aqi_ != 0) {
+      output.writeInt32(3, aqi_);
+    }
+    if (carbonMonoxide_ != 0) {
+      output.writeInt32(4, carbonMonoxide_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -118,6 +172,18 @@ private static final long serialVersionUID = 0L;
     if (room_ != 0) {
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(1, room_);
+    }
+    if (temperature_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(2, temperature_);
+    }
+    if (aqi_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(3, aqi_);
+    }
+    if (carbonMonoxide_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(4, carbonMonoxide_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -137,6 +203,12 @@ private static final long serialVersionUID = 0L;
     boolean result = true;
     result = result && (getRoom()
         == other.getRoom());
+    result = result && (getTemperature()
+        == other.getTemperature());
+    result = result && (getAqi()
+        == other.getAqi());
+    result = result && (getCarbonMonoxide()
+        == other.getCarbonMonoxide());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -150,6 +222,12 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + ROOM_FIELD_NUMBER;
     hash = (53 * hash) + getRoom();
+    hash = (37 * hash) + TEMPERATURE_FIELD_NUMBER;
+    hash = (53 * hash) + getTemperature();
+    hash = (37 * hash) + AQI_FIELD_NUMBER;
+    hash = (53 * hash) + getAqi();
+    hash = (37 * hash) + CARBONMONOXIDE_FIELD_NUMBER;
+    hash = (53 * hash) + getCarbonMonoxide();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -285,6 +363,12 @@ private static final long serialVersionUID = 0L;
       super.clear();
       room_ = 0;
 
+      temperature_ = 0;
+
+      aqi_ = 0;
+
+      carbonMonoxide_ = 0;
+
       return this;
     }
 
@@ -312,6 +396,9 @@ private static final long serialVersionUID = 0L;
     public RoomAirController.roomNum buildPartial() {
       RoomAirController.roomNum result = new RoomAirController.roomNum(this);
       result.room_ = room_;
+      result.temperature_ = temperature_;
+      result.aqi_ = aqi_;
+      result.carbonMonoxide_ = carbonMonoxide_;
       onBuilt();
       return result;
     }
@@ -362,6 +449,15 @@ private static final long serialVersionUID = 0L;
       if (other == RoomAirController.roomNum.getDefaultInstance()) return this;
       if (other.getRoom() != 0) {
         setRoom(other.getRoom());
+      }
+      if (other.getTemperature() != 0) {
+        setTemperature(other.getTemperature());
+      }
+      if (other.getAqi() != 0) {
+        setAqi(other.getAqi());
+      }
+      if (other.getCarbonMonoxide() != 0) {
+        setCarbonMonoxide(other.getCarbonMonoxide());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -414,6 +510,84 @@ private static final long serialVersionUID = 0L;
     public Builder clearRoom() {
       
       room_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private int temperature_ ;
+    /**
+     * <code>int32 temperature = 2;</code>
+     */
+    public int getTemperature() {
+      return temperature_;
+    }
+    /**
+     * <code>int32 temperature = 2;</code>
+     */
+    public Builder setTemperature(int value) {
+      
+      temperature_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 temperature = 2;</code>
+     */
+    public Builder clearTemperature() {
+      
+      temperature_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private int aqi_ ;
+    /**
+     * <code>int32 aqi = 3;</code>
+     */
+    public int getAqi() {
+      return aqi_;
+    }
+    /**
+     * <code>int32 aqi = 3;</code>
+     */
+    public Builder setAqi(int value) {
+      
+      aqi_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 aqi = 3;</code>
+     */
+    public Builder clearAqi() {
+      
+      aqi_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private int carbonMonoxide_ ;
+    /**
+     * <code>int32 carbonMonoxide = 4;</code>
+     */
+    public int getCarbonMonoxide() {
+      return carbonMonoxide_;
+    }
+    /**
+     * <code>int32 carbonMonoxide = 4;</code>
+     */
+    public Builder setCarbonMonoxide(int value) {
+      
+      carbonMonoxide_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 carbonMonoxide = 4;</code>
+     */
+    public Builder clearCarbonMonoxide() {
+      
+      carbonMonoxide_ = 0;
       onChanged();
       return this;
     }

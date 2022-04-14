@@ -11,4 +11,19 @@ public interface roomNumOrBuilder extends
    * <code>int32 room = 1;</code>
    */
   int getRoom();
+
+  /**
+   * <code>int32 temperature = 2;</code>
+   */
+  int getTemperature();
+
+  /**
+   * <code>int32 aqi = 3;</code>
+   */
+  int getAqi();
+
+  /**
+   * <code>int32 carbonMonoxide = 4;</code>
+   */
+  int getCarbonMonoxide();
 }
