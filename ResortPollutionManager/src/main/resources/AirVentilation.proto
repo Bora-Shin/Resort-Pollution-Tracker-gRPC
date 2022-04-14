@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "AirVentilator";
+option java_outer_classname = "AirVentilatorImpl";
+
+package AirVentilator;
+
+service AirVentilation{
+
+	// server streaming rpc
+	rpc airVentilator (everyHour) returns (stream ventilator);
+}
+
+message everyHour{
+	int32 hours = 1;
+}
+
+message ventilator{
+	string startVentilator = 1;
+}
