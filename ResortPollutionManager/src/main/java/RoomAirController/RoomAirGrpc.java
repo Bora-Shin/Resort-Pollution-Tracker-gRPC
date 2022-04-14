@@ -1,4 +1,4 @@
-package RoomAirManager;
+package RoomAirController;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
@@ -24,33 +24,33 @@ public final class RoomAirGrpc {
 
   private RoomAirGrpc() {}
 
-  public static final String SERVICE_NAME = "RoomAirManager.RoomAir";
+  public static final String SERVICE_NAME = "RoomAirController.RoomAir";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<RoomAirManager.roomNum,
-      RoomAirManager.hourlyAirTracker> getControllRoomAirMethod;
+  private static volatile io.grpc.MethodDescriptor<RoomAirController.roomNum,
+      RoomAirController.hourlyAirTracker> getControllRoomAirMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "controllRoomAir",
-      requestType = RoomAirManager.roomNum.class,
-      responseType = RoomAirManager.hourlyAirTracker.class,
+      requestType = RoomAirController.roomNum.class,
+      responseType = RoomAirController.hourlyAirTracker.class,
       methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
-  public static io.grpc.MethodDescriptor<RoomAirManager.roomNum,
-      RoomAirManager.hourlyAirTracker> getControllRoomAirMethod() {
-    io.grpc.MethodDescriptor<RoomAirManager.roomNum, RoomAirManager.hourlyAirTracker> getControllRoomAirMethod;
+  public static io.grpc.MethodDescriptor<RoomAirController.roomNum,
+      RoomAirController.hourlyAirTracker> getControllRoomAirMethod() {
+    io.grpc.MethodDescriptor<RoomAirController.roomNum, RoomAirController.hourlyAirTracker> getControllRoomAirMethod;
     if ((getControllRoomAirMethod = RoomAirGrpc.getControllRoomAirMethod) == null) {
       synchronized (RoomAirGrpc.class) {
         if ((getControllRoomAirMethod = RoomAirGrpc.getControllRoomAirMethod) == null) {
           RoomAirGrpc.getControllRoomAirMethod = getControllRoomAirMethod = 
-              io.grpc.MethodDescriptor.<RoomAirManager.roomNum, RoomAirManager.hourlyAirTracker>newBuilder()
+              io.grpc.MethodDescriptor.<RoomAirController.roomNum, RoomAirController.hourlyAirTracker>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
               .setFullMethodName(generateFullMethodName(
-                  "RoomAirManager.RoomAir", "controllRoomAir"))
+                  "RoomAirController.RoomAir", "controllRoomAir"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  RoomAirManager.roomNum.getDefaultInstance()))
+                  RoomAirController.roomNum.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  RoomAirManager.hourlyAirTracker.getDefaultInstance()))
+                  RoomAirController.hourlyAirTracker.getDefaultInstance()))
                   .setSchemaDescriptor(new RoomAirMethodDescriptorSupplier("controllRoomAir"))
                   .build();
           }
@@ -87,9 +87,12 @@ public final class RoomAirGrpc {
   public static abstract class RoomAirImplBase implements io.grpc.BindableService {
 
     /**
+     * <pre>
+     * server streaming rpc
+     * </pre>
      */
-    public void controllRoomAir(RoomAirManager.roomNum request,
-        io.grpc.stub.StreamObserver<RoomAirManager.hourlyAirTracker> responseObserver) {
+    public void controllRoomAir(RoomAirController.roomNum request,
+        io.grpc.stub.StreamObserver<RoomAirController.hourlyAirTracker> responseObserver) {
       asyncUnimplementedUnaryCall(getControllRoomAirMethod(), responseObserver);
     }
 
@@ -99,8 +102,8 @@ public final class RoomAirGrpc {
             getControllRoomAirMethod(),
             asyncServerStreamingCall(
               new MethodHandlers<
-                RoomAirManager.roomNum,
-                RoomAirManager.hourlyAirTracker>(
+                RoomAirController.roomNum,
+                RoomAirController.hourlyAirTracker>(
                   this, METHODID_CONTROLL_ROOM_AIR)))
           .build();
     }
@@ -125,9 +128,12 @@ public final class RoomAirGrpc {
     }
 
     /**
+     * <pre>
+     * server streaming rpc
+     * </pre>
      */
-    public void controllRoomAir(RoomAirManager.roomNum request,
-        io.grpc.stub.StreamObserver<RoomAirManager.hourlyAirTracker> responseObserver) {
+    public void controllRoomAir(RoomAirController.roomNum request,
+        io.grpc.stub.StreamObserver<RoomAirController.hourlyAirTracker> responseObserver) {
       asyncServerStreamingCall(
           getChannel().newCall(getControllRoomAirMethod(), getCallOptions()), request, responseObserver);
     }
@@ -152,9 +158,12 @@ public final class RoomAirGrpc {
     }
 
     /**
+     * <pre>
+     * server streaming rpc
+     * </pre>
      */
-    public java.util.Iterator<RoomAirManager.hourlyAirTracker> controllRoomAir(
-        RoomAirManager.roomNum request) {
+    public java.util.Iterator<RoomAirController.hourlyAirTracker> controllRoomAir(
+        RoomAirController.roomNum request) {
       return blockingServerStreamingCall(
           getChannel(), getControllRoomAirMethod(), getCallOptions(), request);
     }
@@ -199,8 +208,8 @@ public final class RoomAirGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_CONTROLL_ROOM_AIR:
-          serviceImpl.controllRoomAir((RoomAirManager.roomNum) request,
-              (io.grpc.stub.StreamObserver<RoomAirManager.hourlyAirTracker>) responseObserver);
+          serviceImpl.controllRoomAir((RoomAirController.roomNum) request,
+              (io.grpc.stub.StreamObserver<RoomAirController.hourlyAirTracker>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -224,7 +233,7 @@ public final class RoomAirGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return RoomAirManager.RoomAirImpl.getDescriptor();
+      return RoomAirController.RoomAirImpl.getDescriptor();
     }
 
     @java.lang.Override
