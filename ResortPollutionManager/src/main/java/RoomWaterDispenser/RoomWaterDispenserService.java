@@ -1,0 +1,59 @@
+package RoomWaterDispenser;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+import RoomWaterDispenser.RoomWaterDispenserGrpc.RoomWaterDispenserImplBase;
+import io.grpc.Server;
+import io.grpc.ServerBuilder;
+import io.grpc.stub.StreamObserver;
+
+public class RoomWaterDispenserService extends RoomWaterDispenserImplBase{
+
+	public static void main(String[] args) throws IOException, InterruptedException {
+		
+		RoomWaterDispenserService service4 = new RoomWaterDispenserService();
+		
+		int port = 50054;
+		Server server = ServerBuilder.forPort(port).addService(service4).build().start();
+
+		System.out.println("Checking Water Dispensier Expiry, listening on " + port);
+
+		server.awaitTermination();
+	}
+	
+	public void FilterExpired(lastReplaced request, StreamObserver<expired> responseObserver) throws Exception {
+				
+		String lastReplacedStr = request.getLastReplacedDate();
+		SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
+		Date lastReplacedDate = dateFormat.parse(lastReplacedStr);
+		
+		
+		Date expiryDate = addDays(lastReplacedDate, 30);
+		
+		Date today = Calendar.getInstance().getTime();
+		
+		String expiry = "The water dispenser filter expiry date: " + expiryDate;
+		if(expiryDate.compareTo(today)<=0) {
+			expiry +=" Please replace the filter immediately.";
+		}else {
+			long diff = expiryDate.getTime() - today.getTime();
+			expiry +=" Remaining days until the filter needs to be replaced: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+		}
+		
+		expired responseBuilder = expired.newBuilder().setExpiry(expiry).build();
+		responseObserver.onNext(responseBuilder);
+		responseObserver.onCompleted();
+		
+		
+	}
+	
+	public static Date addDays(Date date, int days) {
+		date.setTime(date.getTime() + days * 1000L * 60L * 60L * 24L);
+		return date;
+	}
+}

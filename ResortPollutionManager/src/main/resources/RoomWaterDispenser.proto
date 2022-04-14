@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "RoomWaterDispenser";
+option java_outer_classname = "RoomWaterDispenserImpl";
+
+package RoomWaterDispenser;
+
+service RoomWaterDispenser{
+
+	// unary rpc
+	rpc FiterExpiry(lastReplaced) returns (expired);
+}
+
+message lastReplaced{
+	int32 room = 1;
+	string lastReplacedDate = 2;
+}
+
+message expired{
+	string expiry = 1;
+}
