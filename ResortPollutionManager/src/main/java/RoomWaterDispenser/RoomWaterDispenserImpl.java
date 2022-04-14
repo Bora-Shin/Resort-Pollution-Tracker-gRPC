@@ -36,11 +36,11 @@ public final class RoomWaterDispenserImpl {
       "\n\030RoomWaterDispenser.proto\022\022RoomWaterDis" +
       "penser\"6\n\014lastReplaced\022\014\n\004room\030\001 \001(\005\022\030\n\020" +
       "lastReplacedDate\030\002 \001(\t\"\031\n\007expired\022\016\n\006exp" +
-      "iry\030\001 \001(\t2b\n\022RoomWaterDispenser\022L\n\013Fiter" +
-      "Expiry\022 .RoomWaterDispenser.lastReplaced" +
-      "\032\033.RoomWaterDispenser.expiredB.\n\022RoomWat" +
-      "erDispenserB\026RoomWaterDispenserImplP\001b\006p" +
-      "roto3"
+      "iry\030\001 \001(\t2c\n\022RoomWaterDispenser\022M\n\014filte" +
+      "rExpiry\022 .RoomWaterDispenser.lastReplace" +
+      "d\032\033.RoomWaterDispenser.expiredB.\n\022RoomWa" +
+      "terDispenserB\026RoomWaterDispenserImplP\001b\006" +
+      "proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

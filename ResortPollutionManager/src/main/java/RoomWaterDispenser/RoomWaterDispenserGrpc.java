@@ -28,35 +28,35 @@ public final class RoomWaterDispenserGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<RoomWaterDispenser.lastReplaced,
-      RoomWaterDispenser.expired> getFiterExpiryMethod;
+      RoomWaterDispenser.expired> getFilterExpiryMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "FiterExpiry",
+      fullMethodName = SERVICE_NAME + '/' + "filterExpiry",
       requestType = RoomWaterDispenser.lastReplaced.class,
       responseType = RoomWaterDispenser.expired.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<RoomWaterDispenser.lastReplaced,
-      RoomWaterDispenser.expired> getFiterExpiryMethod() {
-    io.grpc.MethodDescriptor<RoomWaterDispenser.lastReplaced, RoomWaterDispenser.expired> getFiterExpiryMethod;
-    if ((getFiterExpiryMethod = RoomWaterDispenserGrpc.getFiterExpiryMethod) == null) {
+      RoomWaterDispenser.expired> getFilterExpiryMethod() {
+    io.grpc.MethodDescriptor<RoomWaterDispenser.lastReplaced, RoomWaterDispenser.expired> getFilterExpiryMethod;
+    if ((getFilterExpiryMethod = RoomWaterDispenserGrpc.getFilterExpiryMethod) == null) {
       synchronized (RoomWaterDispenserGrpc.class) {
-        if ((getFiterExpiryMethod = RoomWaterDispenserGrpc.getFiterExpiryMethod) == null) {
-          RoomWaterDispenserGrpc.getFiterExpiryMethod = getFiterExpiryMethod = 
+        if ((getFilterExpiryMethod = RoomWaterDispenserGrpc.getFilterExpiryMethod) == null) {
+          RoomWaterDispenserGrpc.getFilterExpiryMethod = getFilterExpiryMethod = 
               io.grpc.MethodDescriptor.<RoomWaterDispenser.lastReplaced, RoomWaterDispenser.expired>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
-                  "RoomWaterDispenser.RoomWaterDispenser", "FiterExpiry"))
+                  "RoomWaterDispenser.RoomWaterDispenser", "filterExpiry"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   RoomWaterDispenser.lastReplaced.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   RoomWaterDispenser.expired.getDefaultInstance()))
-                  .setSchemaDescriptor(new RoomWaterDispenserMethodDescriptorSupplier("FiterExpiry"))
+                  .setSchemaDescriptor(new RoomWaterDispenserMethodDescriptorSupplier("filterExpiry"))
                   .build();
           }
         }
      }
-     return getFiterExpiryMethod;
+     return getFilterExpiryMethod;
   }
 
   /**
@@ -91,20 +91,20 @@ public final class RoomWaterDispenserGrpc {
      * unary rpc
      * </pre>
      */
-    public void fiterExpiry(RoomWaterDispenser.lastReplaced request,
+    public void filterExpiry(RoomWaterDispenser.lastReplaced request,
         io.grpc.stub.StreamObserver<RoomWaterDispenser.expired> responseObserver) {
-      asyncUnimplementedUnaryCall(getFiterExpiryMethod(), responseObserver);
+      asyncUnimplementedUnaryCall(getFilterExpiryMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            getFiterExpiryMethod(),
+            getFilterExpiryMethod(),
             asyncUnaryCall(
               new MethodHandlers<
                 RoomWaterDispenser.lastReplaced,
                 RoomWaterDispenser.expired>(
-                  this, METHODID_FITER_EXPIRY)))
+                  this, METHODID_FILTER_EXPIRY)))
           .build();
     }
   }
@@ -132,10 +132,10 @@ public final class RoomWaterDispenserGrpc {
      * unary rpc
      * </pre>
      */
-    public void fiterExpiry(RoomWaterDispenser.lastReplaced request,
+    public void filterExpiry(RoomWaterDispenser.lastReplaced request,
         io.grpc.stub.StreamObserver<RoomWaterDispenser.expired> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(getFiterExpiryMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getFilterExpiryMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -162,9 +162,9 @@ public final class RoomWaterDispenserGrpc {
      * unary rpc
      * </pre>
      */
-    public RoomWaterDispenser.expired fiterExpiry(RoomWaterDispenser.lastReplaced request) {
+    public RoomWaterDispenser.expired filterExpiry(RoomWaterDispenser.lastReplaced request) {
       return blockingUnaryCall(
-          getChannel(), getFiterExpiryMethod(), getCallOptions(), request);
+          getChannel(), getFilterExpiryMethod(), getCallOptions(), request);
     }
   }
 
@@ -191,14 +191,14 @@ public final class RoomWaterDispenserGrpc {
      * unary rpc
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<RoomWaterDispenser.expired> fiterExpiry(
+    public com.google.common.util.concurrent.ListenableFuture<RoomWaterDispenser.expired> filterExpiry(
         RoomWaterDispenser.lastReplaced request) {
       return futureUnaryCall(
-          getChannel().newCall(getFiterExpiryMethod(), getCallOptions()), request);
+          getChannel().newCall(getFilterExpiryMethod(), getCallOptions()), request);
     }
   }
 
-  private static final int METHODID_FITER_EXPIRY = 0;
+  private static final int METHODID_FILTER_EXPIRY = 0;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -217,8 +217,8 @@ public final class RoomWaterDispenserGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_FITER_EXPIRY:
-          serviceImpl.fiterExpiry((RoomWaterDispenser.lastReplaced) request,
+        case METHODID_FILTER_EXPIRY:
+          serviceImpl.filterExpiry((RoomWaterDispenser.lastReplaced) request,
               (io.grpc.stub.StreamObserver<RoomWaterDispenser.expired>) responseObserver);
           break;
         default:
@@ -282,7 +282,7 @@ public final class RoomWaterDispenserGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new RoomWaterDispenserFileDescriptorSupplier())
-              .addMethod(getFiterExpiryMethod())
+              .addMethod(getFilterExpiryMethod())
               .build();
         }
       }

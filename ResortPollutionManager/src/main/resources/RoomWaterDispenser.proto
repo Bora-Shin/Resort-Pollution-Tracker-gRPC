@@ -9,7 +9,7 @@ package RoomWaterDispenser;
 service RoomWaterDispenser{
 
 	// unary rpc
-	rpc FiterExpiry(lastReplaced) returns (expired);
+	rpc filterExpiry(lastReplaced) returns (expired);
 }
 
 message lastReplaced{

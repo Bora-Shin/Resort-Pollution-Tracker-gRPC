@@ -51,7 +51,7 @@ public class PoolWaterControllerService extends PoolWaterImplBase{
 			@Override
 			public void onCompleted() {
 				
-				String evacuateMsg = "The Average Ph level for the last 5 monitoring period is ";
+				String evacuateMsg = "The Average Ph level for the last "+list.size() +" monitoring periods is ";
 				
 				int sum = 0;
 				for(int ph: list) {
@@ -65,7 +65,7 @@ public class PoolWaterControllerService extends PoolWaterImplBase{
 				}
 				
 				evacuate.Builder responseBuilder = evacuate.newBuilder();
-				
+				System.out.println(evacuateMsg);
 				responseBuilder.setEvacuateMsg(evacuateMsg);
 				responseObserver.onNext(responseBuilder.build());
 				responseObserver.onCompleted();
