@@ -2,6 +2,7 @@ package PoolWaterController;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import PoolWaterController.PoolWaterGrpc.PoolWaterImplBase;
 import io.grpc.Server;
@@ -9,21 +10,35 @@ import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
 public class PoolWaterControllerService extends PoolWaterImplBase{
+	
+	private static final Logger logger = Logger.getLogger(PoolWaterControllerService.class.getName());
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 		
-		PoolWaterControllerService service2 = new PoolWaterControllerService();
+		PoolWaterControllerService poolControlService = new PoolWaterControllerService();
 		
 		int port = 50052;
+		String service_type = "_grpc._tcp.local.";
+		String service_name = "GrpcServer";
+		SimpleServiceRegistration ssr = new SimpleServiceRegistration();
+		ssr.run(port, service_type, service_name);
 
-		Server server = ServerBuilder.forPort(port)
-				.addService(service2)
-				.build()
-				.start();
+		try {
+			Server server = ServerBuilder.forPort(port).addService(poolControlService).build().start();
 
-		System.out.println("Pool Water Monitoring started, listening on " + port);
+			System.out.println("\nServer V1.2 Started");
+			
+			server.awaitTermination();
+		}catch(IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		server.awaitTermination();
+		logger.info("Pool Water Control Server started, listening on " + port);
 	}
 
 	

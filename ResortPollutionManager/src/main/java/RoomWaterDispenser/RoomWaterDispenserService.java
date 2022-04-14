@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 import RoomWaterDispenser.RoomWaterDispenserGrpc.RoomWaterDispenserImplBase;
 import io.grpc.Server;
@@ -13,17 +14,35 @@ import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
 public class RoomWaterDispenserService extends RoomWaterDispenserImplBase{
+	
+	private static final Logger logger = Logger.getLogger(RoomWaterDispenserService.class.getName());
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 		
-		RoomWaterDispenserService service4 = new RoomWaterDispenserService();
+		RoomWaterDispenserService waterDispenserService = new RoomWaterDispenserService();
 		
 		int port = 50054;
-		Server server = ServerBuilder.forPort(port).addService(service4).build().start();
+		String service_type = "_grpc._tcp.local.";
+		String service_name = "GrpcServer";
+		SimpleServiceRegistration ssr = new SimpleServiceRegistration();
+		ssr.run(port, service_type, service_name);
 
-		System.out.println("Checking Water Dispensier Expiry, listening on " + port);
+		try {
+			Server server = ServerBuilder.forPort(port).addService(waterDispenserService).build().start();
 
-		server.awaitTermination();
+			System.out.println("\nServer V1.2 Started");
+			
+			server.awaitTermination();
+		}catch(IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		logger.info("Room Water Dispenser Server started, listening on " + port);
 	}
 	
 	

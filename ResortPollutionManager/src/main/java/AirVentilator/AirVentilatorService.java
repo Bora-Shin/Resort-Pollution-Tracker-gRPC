@@ -1,6 +1,7 @@
 package AirVentilator;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import AirVentilator.AirVentilationGrpc.AirVentilationImplBase;
 import io.grpc.Server;
@@ -8,18 +9,36 @@ import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
 public class AirVentilatorService extends AirVentilationImplBase{
+	
+	private static final Logger logger = Logger.getLogger(AirVentilatorService.class.getName());
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 		
-		AirVentilatorService service1 = new AirVentilatorService();
+		AirVentilatorService airVentService = new AirVentilatorService();
 		
 		int port = 50051;
+		String service_type = "_grpc._tcp.local.";
+		String service_name = "GrpcServer";
+		SimpleServiceRegistration ssr = new SimpleServiceRegistration();
+		ssr.run(port, service_type, service_name);
 
-		Server server = ServerBuilder.forPort(port).addService(service1).build().start();
+		try {
+			Server server = ServerBuilder.forPort(port).addService(airVentService).build().start();
 
-		System.out.println("Hourly monitoring for air ventilation started, listening on " + port);
+			System.out.println("\nServer V1.2 Started");
+			
+			server.awaitTermination();
+		}catch(IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		server.awaitTermination();
+		logger.info("Air Ventilator Server started, listening on " + port);
+		
 	}
 	
 	// server streaming rpc

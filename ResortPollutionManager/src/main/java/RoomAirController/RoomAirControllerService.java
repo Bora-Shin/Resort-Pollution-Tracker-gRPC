@@ -1,6 +1,7 @@
 package RoomAirController;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import RoomAirController.RoomAirGrpc.RoomAirImplBase;
 import io.grpc.Server;
@@ -8,17 +9,35 @@ import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
 public class RoomAirControllerService extends RoomAirImplBase {
+	
+	private static final Logger logger = Logger.getLogger(RoomAirControllerService.class.getName());
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 
-		RoomAirControllerService service3 = new RoomAirControllerService();
+		RoomAirControllerService roomAirservice = new RoomAirControllerService();
 
 		int port = 50053;
-		Server server = ServerBuilder.forPort(port).addService(service3).build().start();
+		String service_type = "_grpc._tcp.local.";
+		String service_name = "GrpcServer";
+		SimpleServiceRegistration ssr = new SimpleServiceRegistration();
+		ssr.run(port, service_type, service_name);
 
-		System.out.println("Room Air Monitoring started, listening on " + port);
+		try {
+			Server server = ServerBuilder.forPort(port).addService(roomAirservice).build().start();
 
-		server.awaitTermination();
+			System.out.println("\nServer V1.2 Started");
+			
+			server.awaitTermination();
+		}catch(IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		logger.info("Room Air Control Server started, listening on " + port);
 	}
 
 	// bi-directional steaming rpc
