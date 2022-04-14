@@ -1,6 +1,7 @@
 package PoolWaterController;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import PoolWaterController.PoolWaterGrpc.PoolWaterImplBase;
 import io.grpc.Server;
@@ -31,14 +32,13 @@ public class PoolWaterControllerService extends PoolWaterImplBase{
 	public StreamObserver<phLevel> stopPoolEntry (StreamObserver<evacuate> responseObserver){
 		
 		return new StreamObserver<phLevel>() {
-
-			// current PH level
-			int currentPhLevel = 9;
-			String evacuateMsg = "!!! ALERT!!! PH level of the pool water is: " + currentPhLevel + ". ";
+			
+			ArrayList<Integer> list = new ArrayList<Integer>();
 			
 			@Override
 			public void onNext(phLevel value) {
-					
+				
+				list.add(value.getCurrentPhLevel());
 				
 			}
 
@@ -51,10 +51,17 @@ public class PoolWaterControllerService extends PoolWaterImplBase{
 			@Override
 			public void onCompleted() {
 				
-				evacuateMsg += "The Ph level is ";
+				String evacuateMsg = "The Average Ph level for the last 5 monitoring period is ";
 				
-				if(currentPhLevel > 8) {
-					evacuateMsg += "TOO HIGH. Swimmers are at risk of skin rashes. Please evacuate the pool and add liquid acid or dry acid.";
+				int sum = 0;
+				for(int ph: list) {
+					sum += ph;
+				}
+				double averagePh = (double) (sum/list.size());
+				if(averagePh > 8) {
+					evacuateMsg += "TOO HIGH. ("+averagePh+") Swimmers are at risk of skin rashes. Please evacuate the pool and add liquid acid or dry acid.";
+				}else {
+					evacuateMsg += "WELL MAINTAINED. ("+averagePh+") Enjoy swimming!";
 				}
 				
 				evacuate.Builder responseBuilder = evacuate.newBuilder();
