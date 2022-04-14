@@ -13,7 +13,7 @@ public class Client {
 	public static void main(String[] args) throws InterruptedException {
 		
 		// Build a channel - a channel connects the client to the server
-		int port = 50051;
+		int port = 50053;
 		String host = "localhost";
 		
 		ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();

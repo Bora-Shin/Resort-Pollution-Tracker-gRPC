@@ -13,10 +13,10 @@ public class RoomAirControllerService extends RoomAirImplBase {
 
 		RoomAirControllerService service3 = new RoomAirControllerService();
 
-		int port = 50051;
+		int port = 50053;
 		Server server = ServerBuilder.forPort(port).addService(service3).build().start();
 
-		System.out.println("Air Quality Tracker started, listening on " + port);
+		System.out.println("Room Air Monitoring started, listening on " + port);
 
 		server.awaitTermination();
 	}

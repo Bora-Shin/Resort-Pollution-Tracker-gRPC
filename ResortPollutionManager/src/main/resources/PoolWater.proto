@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "PoolWaterController";
+option java_outer_classname = "PoolWaterImpl";
+
+package PoolWaterController;
+
+service PoolWater{
+
+	// client streaming
+	rpc stopPoolEntry (stream phLevel) returns (evacuate);
+
+}
+
+message phLevel{
+	int32 currentPhLevel = 1;
+}
+
+message evacuate{
+	string evacuateMsg = 1;
+}
