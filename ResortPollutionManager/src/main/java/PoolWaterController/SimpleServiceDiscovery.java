@@ -25,6 +25,7 @@ public class SimpleServiceDiscovery {
 		private String host;
 		private ServiceInfo serviceInfo;
 		
+		// first event is that service is added
 		public void serviceAdded(ServiceEvent event) {
 			// TODO Auto-generated method stub
 			System.out.println("\nService Added " + event.getInfo());
@@ -37,12 +38,18 @@ public class SimpleServiceDiscovery {
 			
 		}
 
+		// next event is that service is resolved
+		// this is required in order to populate the serviceInfo object
 		public void serviceResolved(ServiceEvent event) {
 			// TODO Auto-generated method stub
 			System.out.println("Service Resolved " + event.getInfo());
 			
 			ServiceInfo serviceInfo = event.getInfo();
+			
+			// user setter below
 			this.setServiceInfo(serviceInfo);
+			
+			// now do a few printouts
 			System.out.println("host " + serviceInfo.getHostAddress());
 			//this.setHost(serviceInfo.getHostAddress());
 			System.out.println("port " + serviceInfo.getPort());
@@ -63,6 +70,7 @@ public class SimpleServiceDiscovery {
 		}
 
 
+		// this getter allows the runjmDNS to get the serviceInfo
 		public ServiceInfo getServiceInfo() {
 			return serviceInfo;
 		}
@@ -97,6 +105,7 @@ public class SimpleServiceDiscovery {
 			//sleep for 10 seconds
 			Thread.sleep(10000);
 			
+			// now get the service info
 			serviceInfo = msl.getServiceInfo();
 			port = msl.getPort();
 			System.out.println("This is the port retreived from jmDNS: " + port);
@@ -114,6 +123,8 @@ public class SimpleServiceDiscovery {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		// pass the serviceInfo back
 		return serviceInfo;
 
 	}

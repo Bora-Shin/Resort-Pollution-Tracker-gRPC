@@ -17,8 +17,8 @@ public class RoomAirControllerService extends RoomAirImplBase {
 		RoomAirControllerService roomAirservice = new RoomAirControllerService();
 
 		int port = 50053;
-		String service_type = "_grpc._tcp.local.";
-		String service_name = "GrpcServer";
+		String service_type = "_http._tcp.local.";
+		String service_name = "RoomAirControllerServiceServer";
 		SimpleServiceRegistration ssr = new SimpleServiceRegistration();
 		ssr.run(port, service_type, service_name);
 

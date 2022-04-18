@@ -1,7 +1,10 @@
 package AirVentilator;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.logging.Logger;
+
+import javax.jmdns.JmDNS;
 
 import AirVentilator.AirVentilationGrpc.AirVentilationImplBase;
 import io.grpc.Server;
@@ -17,13 +20,18 @@ public class AirVentilatorService extends AirVentilationImplBase{
 		AirVentilatorService airVentService = new AirVentilatorService();
 		
 		int port = 50051;
-		String service_type = "_grpc._tcp.local.";
-		String service_name = "GrpcServer";
+		JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
+		
+		String service_type = "_http._tcp.local.";
+		String service_name = "AirVentilatorServiceServer";
 		SimpleServiceRegistration ssr = new SimpleServiceRegistration();
 		ssr.run(port, service_type, service_name);
 
 		try {
-			Server server = ServerBuilder.forPort(port).addService(airVentService).build().start();
+			Server server = ServerBuilder.forPort(port)
+					.addService(airVentService)
+					.build()
+					.start();
 
 			System.out.println("\nServer V1.2 Started");
 			
@@ -48,7 +56,7 @@ public class AirVentilatorService extends AirVentilationImplBase{
 		ventilator.Builder responseBuilder = ventilator.newBuilder();
 		
 		
-		// client sends the frequency of air ventilation 
+		// client sends the frequency of the air ventilation 
 		int frequency = request.getHours();
 		
 		// server sending hourly status of the air ventilator ( number of responses are set by the client )

@@ -18,8 +18,8 @@ public class PoolWaterControllerService extends PoolWaterImplBase{
 		PoolWaterControllerService poolControlService = new PoolWaterControllerService();
 		
 		int port = 50052;
-		String service_type = "_grpc._tcp.local.";
-		String service_name = "GrpcServer";
+		String service_type = "_http._tcp.local.";
+		String service_name = "PoolWaterControllerServiceServer";
 		SimpleServiceRegistration ssr = new SimpleServiceRegistration();
 		ssr.run(port, service_type, service_name);
 
@@ -48,7 +48,7 @@ public class PoolWaterControllerService extends PoolWaterImplBase{
 		
 		return new StreamObserver<phLevel>() {
 			
-			ArrayList<Integer> list = new ArrayList<Integer>();
+			ArrayList<Integer> list = new ArrayList();
 			
 			@Override
 			public void onNext(phLevel value) {
@@ -78,11 +78,9 @@ public class PoolWaterControllerService extends PoolWaterImplBase{
 				}else {
 					evacuateMsg += "WELL MAINTAINED. ("+averagePh+") Enjoy swimming!";
 				}
-				
-				evacuate.Builder responseBuilder = evacuate.newBuilder();
-				System.out.println(evacuateMsg);
-				responseBuilder.setEvacuateMsg(evacuateMsg);
-				responseObserver.onNext(responseBuilder.build());
+							
+				evacuate reply = evacuate.newBuilder().setEvacuateMsg(evacuateMsg).build();
+				responseObserver.onNext(reply);
 				responseObserver.onCompleted();
 			}
 			

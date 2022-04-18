@@ -19,9 +19,9 @@ public class Client {
 	public static void main(String[] args) throws InterruptedException {
 
 		ServiceInfo serviceInfo;
-		String service_type = "_grpc._tcp.local.";
+		String service_type = "_http._tcp.local.";
 		// Now retrieve the service info - all we are supplying is the service type
-		serviceInfo = SimpleServiceDiscovery.runjmDNS(service_type);
+		serviceInfo = SimpleServiceDiscovery.run(service_type);
 		// Use the serviceInfo to retrieve the port
 		int port = serviceInfo.getPort();
 
@@ -30,6 +30,7 @@ public class Client {
 		String host = "localhost";
 
 		ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
+
 		AirVentilationBlockingStub blockingStub = AirVentilationGrpc.newBlockingStub(channel);
 
 		try {
@@ -45,6 +46,7 @@ public class Client {
 					logger.info(individualResponse.getStartVentilator());
 
 				}
+				
 			} catch (StatusRuntimeException e) {
 				e.printStackTrace();
 			}
@@ -55,17 +57,15 @@ public class Client {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
-			
+
 		} catch (StatusRuntimeException e) {
 			logger.log(Level.WARNING, "RPC failed: {0}", e.getStatus());
-			
+
 			return;
-			
+
 		} finally {
-		// Clean up : Shutdown the channel
-		channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+			// Clean up : Shutdown the channel
+			channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
 		}
 	}
 

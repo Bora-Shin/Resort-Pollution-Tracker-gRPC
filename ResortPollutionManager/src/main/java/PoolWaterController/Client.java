@@ -18,7 +18,7 @@ public class Client {
 	public static void main(String[] args) throws InterruptedException {
 
 		ServiceInfo serviceInfo;
-		String service_type = "_grpc._tcp.local.";
+		String service_type = "_http._tcp.local.";
 		// Now retrieve the service info - all we are supplying is the service type
 		serviceInfo = SimpleServiceDiscovery.runjmDNS(service_type);
 		// Use the serviceInfo to retrieve the port
@@ -33,7 +33,7 @@ public class Client {
 		PoolWaterStub asyncStub = PoolWaterGrpc.newStub(channel);
 
 		try {
-			// preaparing message to send (request) - client streaming
+			// preparing message to send (request) - client streaming
 			StreamObserver<evacuate> responseObserver = new StreamObserver<evacuate>() {
 
 				@Override
@@ -59,15 +59,15 @@ public class Client {
 			StreamObserver<phLevel> requestObserver = asyncStub.stopPoolEntry(responseObserver);
 			try {
 
-				for (int i = 0; i < 3; i++) {
-
+				
+					for(int i = 0; i < 5; i++) {
 					// current PH level
 					int min = 1;
 					int max = 12;
 					int currentPhLevel = (int) Math.floor(Math.random() * (max - min + 1) + min);
 
 					requestObserver.onNext(phLevel.newBuilder().setCurrentPhLevel(currentPhLevel).build());
-				}
+					}
 
 				requestObserver.onCompleted();
 				Thread.sleep(5000);

@@ -15,8 +15,7 @@ public class SimpleServiceDiscovery {
 
 	private int port;
 	private String host;
-	
-	
+
 	
 	//option 1
 	private static class MyServiceListener implements ServiceListener{
@@ -44,7 +43,7 @@ public class SimpleServiceDiscovery {
 			ServiceInfo serviceInfo = event.getInfo();
 			this.setServiceInfo(serviceInfo);
 			System.out.println("host " + serviceInfo.getHostAddress());
-			//this.setHost(serviceInfo.getHostAddress());
+//			this.setHost(serviceInfo.getHostAddress());
 			System.out.println("port " + serviceInfo.getPort());
 			this.setPort(serviceInfo.getPort());
 			System.out.println("type " + serviceInfo.getType());
@@ -74,7 +73,8 @@ public class SimpleServiceDiscovery {
 	}
 
 	//public static void main(String[] args) {
-	public static ServiceInfo runjmDNS(String service_type) {
+	public static ServiceInfo run(String service_type) {
+		
 		
 		int port = 0;
 		ServiceInfo serviceInfo = null;

@@ -20,7 +20,7 @@ public class Client {
 	public static void main(String[] args) throws InterruptedException {
 
 		ServiceInfo serviceInfo;
-		String service_type = "_grpc._tcp.local.";
+		String service_type = "_http._tcp.local.";
 		// Now retrieve the service info - all we are supplying is the service type
 		serviceInfo = SimpleServiceDiscovery.runjmDNS(service_type);
 		// Use the serviceInfo to retrieve the port
@@ -41,10 +41,11 @@ public class Client {
 
 				@Override
 				public void onNext(hourlyAirTracker value) {
-					logger.info("<Room Temperature>\n" + value.getTemperature());
-					logger.info("<Air Quality in the Room>\n" + value.getAqi());
-					logger.info("<Air Purifier>\n" + value.getAirPurifier());
-					logger.info("<Carbon Monoxide>\n" + value.getCarbonMonoxide());
+					logger.info("\n... Room air is currently being monitored ...");
+					logger.info("\n<Room temperature>\n"+value.getTemperature());
+					logger.info("\n<Air Quality>\n"+value.getAqi());
+					logger.info("\n<Air Purifier>\n"+value.getAirPurifier());
+					logger.info("\n<Carbon Monoxide Alarm>\n"+value.getCarbonMonoxide());
 
 				}
 
@@ -65,9 +66,11 @@ public class Client {
 			StreamObserver<roomNum> requestObserver = asyncStub.controllRoomAir(responseObserver);
 
 			try {
+				
 				// these are just variables created for the purpose of simplifying this project.
 				// in real life, I would like this part to be linked to thermometer to collect
 				// room temperature data.
+				for(int i = 0 ; i<5; i++) {
 				int minTemp = 0;
 				int maxTemp = 50;
 				int temperature = (int) Math.floor(Math.random() * (maxTemp - minTemp + 1) + minTemp);
@@ -84,6 +87,7 @@ public class Client {
 
 				requestObserver.onNext(roomNum.newBuilder().setRoom(102).setTemperature(temperature).setAqi(aqi)
 						.setCarbonMonoxide(carbonMonox).build());
+				}
 				requestObserver.onCompleted();
 				Thread.sleep(3000);
 
