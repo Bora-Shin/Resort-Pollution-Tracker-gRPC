@@ -18,12 +18,12 @@ public class Client {
 
 	public static void main(String[] args) throws InterruptedException {
 
-		ServiceInfo serviceInfo;
-		String service_type = "_http._tcp.local.";
+		ServiceInfo serviceInfo1;
+		String service_type1 = "_http._tcp.local.";
 		// Now retrieve the service info - all we are supplying is the service type
-		serviceInfo = SimpleServiceDiscovery.run(service_type);
+		serviceInfo1 = SimpleServiceDiscovery.run(service_type1);
 		// Use the serviceInfo to retrieve the port
-		int port = serviceInfo.getPort();
+		int port = serviceInfo1.getPort();
 
 		// Build a channel - a channel connects the client to the server
 		// int port = 50051;
