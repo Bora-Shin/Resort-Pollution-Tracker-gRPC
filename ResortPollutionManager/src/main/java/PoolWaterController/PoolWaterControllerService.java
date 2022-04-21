@@ -54,6 +54,7 @@ public class PoolWaterControllerService extends PoolWaterImplBase{
 			public void onNext(phLevel value) {
 				
 				list.add(value.getCurrentPhLevel());
+				System.out.println(value.getCurrentPhLevel());
 				
 			}
 
@@ -68,16 +69,19 @@ public class PoolWaterControllerService extends PoolWaterImplBase{
 				
 				String evacuateMsg = "The Average Ph level for the last "+list.size() +" monitoring periods is ";
 				
-				int sum = 0;
+				double sum = 0;
 				for(int ph: list) {
-					sum += ph;
+					sum += (double) ph;
 				}
-				double averagePh = (double) (sum/list.size());
+				double averagePh = sum/(list.size());
 				if(averagePh > 8) {
-					evacuateMsg += "TOO HIGH. ("+averagePh+") Swimmers are at risk of skin rashes. Please evacuate the pool and add liquid acid or dry acid.";
+					evacuateMsg += "TOO HIGH. ("+averagePh+") \nSwimmers are at risk of skin rashes. \nPlease evacuate the pool and add liquid acid or dry acid.";
+				}else if(averagePh < 7){
+					evacuateMsg +="TOO LOW. ("+averagePh+")\n It causes discomfort for swimmers like burning eyes. \nPlease add sodium carbonate.";
 				}else {
-					evacuateMsg += "WELL MAINTAINED. ("+averagePh+") Enjoy swimming!";
+					evacuateMsg += "WELL MAINTAINED. ("+averagePh+") \nEnjoy swimming!";
 				}
+				
 							
 				evacuate reply = evacuate.newBuilder().setEvacuateMsg(evacuateMsg).build();
 				responseObserver.onNext(reply);

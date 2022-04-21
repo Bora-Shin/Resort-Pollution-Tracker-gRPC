@@ -47,47 +47,46 @@ public class RoomAirControllerService extends RoomAirImplBase {
 
 			@Override
 			public void onNext(roomNum value) {
-				// TODO Auto-generated method stub
-				for (int hour = 0; hour < 5; hour++) {
 
-					// temperature
-					String temperatureMsg = "Current room temperature: ";
-					int temperature = value.getTemperature();
-					temperatureMsg += temperature + " degrees. The room is ";
-					if (temperature <= 15) {
-						temperatureMsg += "cold. Turning the heater ON.";
-					} else if (temperature >= 25) {
-						temperatureMsg += "hot. Turning the aircon ON.";
-					} else {
-						temperatureMsg += "moderate.";
-					}
-
-					// air purifier
-					int aqi = value.getAqi();
-					String currentAQI = "Room Air Quality Index: " + aqi;
-					String airPurifierStatus = "";
-					if (aqi <= 100) {
-						airPurifierStatus += "OFF - Air Quality is Good. ";
-					} else {
-						airPurifierStatus += "ON - Air Quality is Bad. ";
-					}
-
-					// carbon monoxide alarm
-					int carbonMonox = value.getCarbonMonoxide();
-					String carbonMonoxAlarm = "Carbon Monoxide Level: " + carbonMonox + " PPM. Status: ";
-					if (carbonMonox <= 50) {
-						carbonMonoxAlarm += "NORMAL";
-					} else if (carbonMonox < 150) {
-						carbonMonoxAlarm += "UNHEALTHY. Please open the window.";
-					} else {
-						carbonMonoxAlarm += "DANGEROUS. Please leave the room and notify building manager.";
-					}
-
-					hourlyAirTracker response = hourlyAirTracker.newBuilder().setTemperature(temperatureMsg)
-							.setAqi(currentAQI).setAirPurifier(airPurifierStatus).setCarbonMonoxide(carbonMonoxAlarm)
-							.build();
-					responseObserver.onNext(response);
+				// temperature
+				String temperatureMsg = "\nCurrent room temperature: ";
+				int temperature = value.getTemperature();
+				temperatureMsg += temperature + " degrees. The room is ";
+				if (temperature <= 15) {
+					temperatureMsg += "cold. Turning the heater ON.";
+				} else if (temperature >= 25) {
+					temperatureMsg += "hot. Turning the aircon ON.";
+				} else {
+					temperatureMsg += "moderate.";
 				}
+
+				// air purifier
+				int aqi = value.getAqi();
+				String currentAQI = "Room Air Quality Index: " + aqi;
+				String airPurifierStatus = "Air Purifier ";
+				if (aqi <= 100) {
+					airPurifierStatus += "OFF - Air Quality is Good. ";
+				} else {
+					airPurifierStatus += "ON - Air Quality is Bad. ";
+				}
+
+				// carbon monoxide alarm
+				int carbonMonox = value.getCarbonMonoxide();
+				String carbonMonoxAlarm = "Carbon Monoxide Level: " + carbonMonox + " PPM. Status: ";
+				if (carbonMonox <= 50) {
+					carbonMonoxAlarm += "NORMAL";
+				} else if (carbonMonox < 150) {
+					carbonMonoxAlarm += "UNHEALTHY. Please open the window.";
+				} else {
+					carbonMonoxAlarm += "DANGEROUS. Please leave the room immedeately.";
+				}
+
+				hourlyAirTracker response = hourlyAirTracker.newBuilder().setTemperature(temperatureMsg)
+						.setAqi(currentAQI).setAirPurifier(airPurifierStatus).setCarbonMonoxide(carbonMonoxAlarm)
+						.build();
+				responseObserver.onNext(response);
+					
+
 
 			}
 
@@ -100,6 +99,7 @@ public class RoomAirControllerService extends RoomAirImplBase {
 			@Override
 			public void onCompleted() {
 				// to indicate the message is finished
+				
 				responseObserver.onCompleted();
 
 			}

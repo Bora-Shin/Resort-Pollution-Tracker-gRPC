@@ -61,12 +61,12 @@ public class AirVentilatorService extends AirVentilationImplBase{
 		
 		// server sending hourly status of the air ventilator ( number of responses are set by the client )
 		for(int hour = 0; hour<=frequency; hour++) {
-			String startVentilator = "Air Ventilation is currently ";
+			String startVentilator = "\nAir Ventilation is currently ";
 						
 			if(hour == frequency) {
 				startVentilator+= "ON. Windows are OPEN. ";
 			}else {
-				startVentilator+= "OFF. All windows are CLOSED. (" + (frequency-hour) +" hours left until next air ventilation.)";
+				startVentilator+= "OFF. All windows are CLOSED. \n(" + (frequency-hour) +" hours left until next air ventilation.)";
 			}
 			
 			responseBuilder.setStartVentilator(startVentilator);

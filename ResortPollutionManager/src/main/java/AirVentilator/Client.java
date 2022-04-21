@@ -21,7 +21,7 @@ public class Client {
 		ServiceInfo serviceInfo1;
 		String service_type1 = "_http._tcp.local.";
 		// Now retrieve the service info - all we are supplying is the service type
-		serviceInfo1 = SimpleServiceDiscovery.run(service_type1);
+		serviceInfo1 = SimpleServiceDiscovery.runjmDNS(service_type1);
 		// Use the serviceInfo to retrieve the port
 		int port = serviceInfo1.getPort();
 

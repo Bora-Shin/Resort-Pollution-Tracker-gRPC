@@ -73,7 +73,7 @@ public class SimpleServiceDiscovery {
 	}
 
 	//public static void main(String[] args) {
-	public static ServiceInfo run(String service_type) {
+	public static ServiceInfo runjmDNS(String service_type) {
 		
 		
 		int port = 0;

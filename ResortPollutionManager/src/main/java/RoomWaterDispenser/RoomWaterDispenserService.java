@@ -61,14 +61,14 @@ public class RoomWaterDispenserService extends RoomWaterDispenserImplBase {
 			// checking today's date
 			Date today = Calendar.getInstance().getTime();
 
-			String expiry = "The water dispenser filter expiry date: " + expiryDate;
+			String expiry = "The water dispenser filter expiry date: " + expiryDate +"\n";
 			if (expiryDate.compareTo(today) <= 0) {
 				long late = today.getTime() - expiryDate.getTime();
-				expiry += " Please replace the filter immediately. It has been "
+				expiry += " Please replace the filter immediately.\nIt has been "
 						+ TimeUnit.DAYS.convert(late, TimeUnit.MILLISECONDS) + " days since the filter expired.";
 			} else {
 				long remaining = expiryDate.getTime() - today.getTime();
-				expiry += " Remaining days until the filter needs to be replaced: "
+				expiry += "Remaining days until the filter needs to be replaced: "
 						+ TimeUnit.DAYS.convert(remaining, TimeUnit.MILLISECONDS);
 			}
 
