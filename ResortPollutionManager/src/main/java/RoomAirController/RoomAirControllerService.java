@@ -49,7 +49,7 @@ public class RoomAirControllerService extends RoomAirImplBase {
 			public void onNext(roomNum value) {
 
 				// temperature
-				String temperatureMsg = "\nCurrent room temperature: ";
+				String temperatureMsg = "Current room temperature: ";
 				int temperature = value.getTemperature();
 				temperatureMsg += temperature + " degrees. The room is ";
 				if (temperature <= 15) {
@@ -78,8 +78,9 @@ public class RoomAirControllerService extends RoomAirImplBase {
 				} else if (carbonMonox < 150) {
 					carbonMonoxAlarm += "UNHEALTHY. Please open the window.";
 				} else {
-					carbonMonoxAlarm += "DANGEROUS. Please leave the room immedeately.";
+					carbonMonoxAlarm += "DANGEROUS. Please leave the room immediately.";
 				}
+				carbonMonoxAlarm+= "\n";
 
 				hourlyAirTracker response = hourlyAirTracker.newBuilder().setTemperature(temperatureMsg)
 						.setAqi(currentAQI).setAirPurifier(airPurifierStatus).setCarbonMonoxide(carbonMonoxAlarm)

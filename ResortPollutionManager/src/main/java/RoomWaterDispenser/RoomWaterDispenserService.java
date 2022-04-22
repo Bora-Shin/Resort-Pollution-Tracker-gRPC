@@ -55,7 +55,7 @@ public class RoomWaterDispenserService extends RoomWaterDispenserImplBase {
 		try {
 			lastReplacedDate = dateFormat.parse(lastReplacedStr);
 
-			// checking when is the filtr expiry date
+			// checking when is the filter expiry date
 			Date expiryDate = addDays(lastReplacedDate, 30);
 
 			// checking today's date
